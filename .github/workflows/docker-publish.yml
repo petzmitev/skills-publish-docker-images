@@ -5,6 +5,14 @@ on:
     branches:
       - main
 
+    tags:
+        - "v*"
+  pull_request:
+    branches:
+        - main
+  
+  workflow_dispatch:  
+
 permissions:
   contents: read
   packages: write
@@ -34,6 +42,12 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Extract metdata for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+            images: ghcr.io/petzmitev/skills-publish-docker-images/stackoverflown
+
       
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
@@ -41,7 +55,5 @@ jobs:
           context: .
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: |
-            ghcr.io/petzmitev/skills-publish-docker-images/stackoverflown:main
-            ghcr.io/petzmitev/skills-publish-docker-images/stackoverflown:${{ github.sha }}
+          tags: ${{ steps.meta.outputs.tags }}
             
