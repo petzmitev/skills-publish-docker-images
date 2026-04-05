@@ -44,3 +44,4 @@ jobs:
           tags: |
             ghcr.io/petzmitev/skills-publish-docker-images/stackoverflown:main
             ghcr.io/petzmitev/skills-publish-docker-images/stackoverflown:${{ github.sha }}
+            
