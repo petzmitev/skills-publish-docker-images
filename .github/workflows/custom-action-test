@@ -1,0 +1,15 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run my composite action
+        uses: ./.github/actions/my-composite-action
+        with:
+          node-version: 18
